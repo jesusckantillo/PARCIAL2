@@ -5,7 +5,7 @@ from main import Imperium
 #Person and people classes
 class Person(ABC):
     
-    ID = 000000
+    last_id =0
 
     def __init__(self, name: str,planet:Planet)->None:
         self._name: str = name
@@ -13,9 +13,13 @@ class Person(ABC):
         self._planet: "Planet" = planet ##Mandar planeta como diccionario
         
 
+    @staticmethod
+    def gen_id():
+        Person.last_id +=1
+        return format(Person.last_id, '06x')
 class Soldier(Person):
 
-    def __init__(self, name: str, age: int, planet: Planet) -> None:
+    def __init__(self,name:str,age:int, planet:Planet) -> None:
         super().__init__(name,planet)
         self.__age = age
 
@@ -24,6 +28,9 @@ class Bureaucrat(Person):
         def __init__(self, name: str, deparment: str, planet: Planet) -> None:
             super().__init__(name, planet)
             self.__department: str = None
+
+        def set_planet(self, planet: Planet) -> None:
+            self._planet = planet
 
 
 class Astarte(Person):

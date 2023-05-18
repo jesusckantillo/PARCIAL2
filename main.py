@@ -1,4 +1,6 @@
-from core.imperium.imperium import Imperium, Emperor, SingletonError
+from core.imperium.imperium import Imperium, Emperor
+from utils.enum import PlanetType,  Status
+from utils.person import Primarch, Bureaucrat, Astarte, Soldier
 
 def main() -> None:
     try:
@@ -220,7 +222,7 @@ def main() -> None:
 
     imperium.add_bureaucrat(Bureaucrat('Imperial Bureaucrat', 'Departmento Munitorum', planets_info['terra'])) # A new registry must be added at Administratum with value 0
     imperium.register_planet(imperium.get_bureaucrat(0), planets_info['armageddon']) # The registry must increase in 1
-    imperium.register_planet(imperium.get_bureaucrat(0), planets_info['armageddon']) # The registry mustn't increase
+    imperium.register_planet(imperium.get_bureaucrat(0), planets_info['armageddon']) # The registry mustn't increase //Como confirmo esto?
     imperium.register_planet(imperium.get_bureaucrat(0), planets_info['catachan'])
 
     imperium.add_chapter('Dark Angels', imperium.primarchs[0], 'Caliban')

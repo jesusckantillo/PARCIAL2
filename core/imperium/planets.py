@@ -11,7 +11,8 @@ class Segmentun:
         self.__planets: List[Planet] = []
         pass
 
-
+    def add_planet(self,planet:Planet)->None:
+        self.__planets.append(planet)
 
 class Planet:
 
