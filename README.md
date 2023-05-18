@@ -1,2 +1,5 @@
 # PARCIAL2
 Parcial 2
+
+
+#APLICAR SEGMENTOS

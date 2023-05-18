@@ -38,7 +38,7 @@ class Primarch(Person):
           super().__init__(name, planet)
           self.__alias: str = alias
           self.__loyalty: bool = True
-          self.__status: enumerate = Status.Alive
+          self.__status: enumerate = Status.ALIVE
           self.__imperium: "Imperium" = Imperium
 
      def betray(self) -> None:

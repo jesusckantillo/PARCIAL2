@@ -1,8 +1,13 @@
 from __future__ import annotations
+#Python and t
+from __future__ import annotations
 from typing import List
-from person.primarch import Primarch
-from core.planets import Planet
+
+from utils.person import Primarch
+from core.imperium.planets import Planet
+from core.chapters import Chapter
 from core.admin import Administratum
+
 
 class Imperium:
     def __init__(self, name: str, planet_info: dict):
@@ -26,9 +31,26 @@ class Imperium:
 
 
     def add_bureaucreat(self, bureaucrat:Bureaucrat )->None:
-        self.__
+        self.__administratum.add_bureaucrat(bureaucrat)
+
+    def get_burocrat(self,index:int)->Bureaucrat:
+        return self.__administratum.get_burocrat(index)
 
     
+    #Bureaucrat's index -> Planet's index
+    def register_planet(self, bureaucrat:Bureaucrat, planet_info:dict)->None:
+        planet = Planet(planet_info) 
+        
+
+
+    def get_chapters(self, index:int)->Chapter:
+        return
+
+
+    #Rercuerda que chapter es reflexiva
+    def add_chapter(self,name:str, primarch: Primarch, planet: str)->None:
+            
+            
     @property
     def primarchs(self)->List[Primarch]:
         return self.__primarchs

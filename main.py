@@ -1,4 +1,4 @@
-from core.imperium import Imperium, Emperor, SingletonError
+from core.imperium.imperium import Imperium, Emperor, SingletonError
 
 def main() -> None:
     try:
