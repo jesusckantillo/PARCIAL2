@@ -75,8 +75,8 @@ class Primarch(Person):
         print(f'  - Loyal: {self.__loyalty}')
         print(f'  - Status: {self.__status.value}')
         print(f'  - Planet: {planet_instance.name}')
-        print(f'   - Astra Militarum Regiments: {len(self.__imperium.get_regiments_by_planet(planet_instance.name))}')
-        print(f'   - Adeptus Militarun Total Soldiers: {len(planet_instance.get_all_soldiers())}')
+        print(f'   - Astra Militarum Regiments: {self.__imperium.get_amount_soldiers_regiment(planet_instance.name)[0]}')
+        print(f'   - Adeptus Militarun Total Soldiers: {self.__imperium.get_amount_soldiers_regiment(planet_instance.name)[1]}')
         print(f'   - Adeptus Astartes Chapter: {self.__imperium.get_chapter_by_primarch(self).name}')
         print(f'    - Succesor Chapters:')
 

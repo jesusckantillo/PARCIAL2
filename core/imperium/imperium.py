@@ -165,6 +165,16 @@ class Imperium:
             print("  - Purged from Imperial Registry")
           print("")
 
+    def get_regiments_info(self, name:str)->int:
+        soldiers = 0
+        regi_amount =0
+        for regiment in self.__astra_militarun.regiments:
+            if regiment.planet.name == name:
+                regi_amount += 1
+                soldiers += len(regiment.soldiers)
+        return [regi_amount,soldiers]
+                
+
 
     @property
     def name(self)->str:

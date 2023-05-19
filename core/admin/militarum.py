@@ -20,6 +20,10 @@ class AstraMilitarum():
             if regiment.planet == planet:
                 regiments.append(regiment)
         return regiments
+    
+    @property
+    def regiments(self) -> List[Regiment]:
+        return self.__regiments
 
 class Regiment:
     def __init__(self, name: str, planet: str) -> None:
