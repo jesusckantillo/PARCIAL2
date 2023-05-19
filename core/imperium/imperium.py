@@ -1,17 +1,14 @@
 from __future__ import annotations
-from __future__ import annotations
 from typing import List
 from collections import Counter
 
-
-#from utils.person import Primarch, Bureaucrat
 from core.imperium.planets import Planet, Segmentum
 from utils.exceptions.exceptions import SingletonError
 from utils.person import Primarch, Bureaucrat
 from core.admin.militarum import AstraMilitarum, Regiment
 from core.chapters.chapter import Chapter, AdeptusAstartes
 from core.admin.admin import Administratum
-#from admin.militarum import AstraMilitarum, Regiment
+
 
 class Imperium:
 
@@ -68,20 +65,15 @@ class Imperium:
     def get_bureaucrat(self,index:int)->Bureaucrat:
         return self.__administratum.get_bureaucrat(index)
 
-    
-    #Bureaucrat's index -> Planet's index
     def register_planet(self, bureaucrat:Bureaucrat, planet_info:dict)->None:
         planet = Planet(planet_info)
         bureaucrat.set_planet(planet)
-    
-    
-
+     
     def get_chapter(self, index:int)->Chapter:
         try:
             return self.__adeptus_astartes.get_chapter(index)
         except RuntimeError as e:
             print(f"{type(e).__name__}: {str(e)}")
-
 
     def find_planet(self, name:str)->Planet:
         for segmentum in self.__segmentums:
@@ -90,12 +82,9 @@ class Imperium:
                     return planet
         return None
     
-
-    #Rercuerda que chapter es reflexiva
     def add_chapter(self,name:str, primarch: Primarch, planetstr: str)->None:
         self.__adeptus_astartes.add_chapter(Chapter(name, primarch,self.find_planet(planetstr)))
         print(f'Created chapter {name} of Adeptus Astartes')
-
 
     def add_segmentum(self, segmentum: Segmentum)->None:
         self.__segmentums.append(segmentum)
@@ -103,7 +92,8 @@ class Imperium:
         pass
 
     def add_regiment(self, name:str, name_planet:str)->None:
-        self.__astra_militarun.add_regiment(Regiment(name,self.find_planet(name_planet)))
+        find_planet = self.find_planet(name_planet)
+        self.__astra_militarun.add_regiment(Regiment(name,find_planet))
         planet = self.find_planet(name_planet)
         planet.add_regiment(Regiment(name,planet))
         print(f'Created Regiment {name} of Astra Militarum')
@@ -111,7 +101,6 @@ class Imperium:
     def get_regiment(self, index:int)->Regiment:
         return self.__astra_militarun.get_regiment(index)
     
-
     def register_planet(self, burecraut: Bureaucrat, planet_info: dict)->None:
          index = self.__administratum.get_bureaucrat_index(burecraut)
          try:
@@ -126,8 +115,6 @@ class Imperium:
          except RuntimeError as e:
             print(f"{type(e).__name__}: {str(e)}")
             
-
-    #Maximo numero de burocratas  / numero de planetas
     def bureaucrat_max_registry(self)->List[Bureaucratm, int]:
         return self.__administratum.max_registers()
 
@@ -145,7 +132,9 @@ class Imperium:
         except RuntimeError as e:
             print(f"{type(e).__name__}: {str(e)}")
             
-    
+    def get_regiments_by_planet(self, name:str)->List[Regiment]:
+         return self.__astra_militarun.get_regiments_by_planet(name)
+
     def planet_type_quantity(self)->None:
       planet_counts = Counter()
       for segmentum in self.__segmentums:
@@ -156,9 +145,9 @@ class Imperium:
       print("---------- Planet Type ----------")
       for planet, quantity in sorted(dictio.items()):
         print("- {} Planet Quantity = {}".format(planet, quantity))
-
+      print("")
     def get_chapter_by_primarch(self, primarch: Primarch)->Chapter:
-        return self.__adeptus_astartes.get_chapter_by_primarch(primarch).name
+        return self.__adeptus_astartes.get_chapter_by_primarch(primarch)
 
     def show_primarchs_summary(self)->None:
         NUMBERS = [
@@ -170,11 +159,13 @@ class Imperium:
           print(f"- Primarch {NUMBERS[i]}")
           if self.__primarchs[i] is not None:
             self.__primarchs[i].show_summary()
+            for chapter in self.get_chapter_by_primarch(self.__primarchs[i]).succcesor_chapters:
+                print(f"        -{chapter.name}")
           else:
             print("  - Purged from Imperial Registry")
           print("")
 
-          
+
     @property
     def name(self)->str:
         return self.__name
@@ -209,7 +200,6 @@ class Emperor:
         self.__imperiun = imperium_instance
         self.__imperiun.add_segmentum(segmentum)     
         imperium_instance.set_emperor(self)
-
 
 
     def create_primarch(self, name: str=None, alias:str=None,planet_info:dict=None):

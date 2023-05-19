@@ -59,3 +59,7 @@ class Chapter():
     @property
     def primarch(self)->Primarch:
         return self.__primarch
+    
+    @property
+    def succcesor_chapters(self)->List[Chapter]:
+        return self.__succesor_chapters

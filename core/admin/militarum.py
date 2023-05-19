@@ -14,6 +14,13 @@ class AstraMilitarum():
     def add_regiment(self, regiment: Regiment) -> None:
         self.__regiments.append(regiment)
 
+    def get_regiments_by_planet(self, planet: str) -> List[Regiment]:
+        regiments: List[Regiment] = []
+        for regiment in self.__regiments:
+            if regiment.planet == planet:
+                regiments.append(regiment)
+        return regiments
+
 class Regiment:
     def __init__(self, name: str, planet: str) -> None:
         self.__name: str = name
@@ -33,3 +40,7 @@ class Regiment:
     @property
     def soldiers(self) -> List[Soldier]:
         return self.__soldiers
+       
+    @property
+    def planet(self) -> str:
+        return self.__planet
