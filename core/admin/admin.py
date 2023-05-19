@@ -14,5 +14,8 @@ class Administratum():
     def modify_registers(self, index:int)->None:
         self.__planet_registry[index] +=1
     
-    def get_burocrat(self, index: int) -> Bureaucrat:
+    def get_bureaucrat(self, index: int) -> Bureaucrat:
         return self.__bureaucrats[index]
+
+    def get_bureaucrat_index(self, bureaucrat: Bureaucrat) -> int:
+        return self.__bureaucrats.index(bureaucrat)

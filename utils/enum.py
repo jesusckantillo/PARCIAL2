@@ -4,9 +4,9 @@ class Status(Enum):
 
     ALIVE = 'Alive'
     DEAD = 'Dead'
-    UNKNOW = 'Unknow'
+    UNKNOWN = 'Unknown'
 
-class PlanetTyped(Enum):
+class PlanetType(Enum):
 
     AGRI = 'Agri'
     CIVILISED = 'Civilised'

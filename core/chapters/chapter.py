@@ -1,9 +1,9 @@
-from future import __annotations__
+from __future__ import annotations
 from typing import List
 from utils.person import Primarch, Astarte
 
 
-class AdeptusArtartes():
+class AdeptusAstartes():
   def __init__(self)->None:
    self.__chapters: List[Chapter] = []
 
@@ -11,6 +11,9 @@ class AdeptusArtartes():
   def add_chapter(self,chapter:Chapter)->None:
       self.__chapters.append(chapter)
 
+  def get_chapter(self,index:int)->Chapter:
+        return self.__chapters[index]
+         
 
 class Chapter():
 
@@ -25,5 +28,5 @@ class Chapter():
     def add_astarte(self,astarte:Astarte)->None:
         self.__Astartes.append(astarte)
 
-    def add_succesor_chapter(self,chapter:Chapter)->None:
+    def add_successor_chapter(self,chapter:Chapter)->None:
         self.__succesor_chapters.append(chapter)

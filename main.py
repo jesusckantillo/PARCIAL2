@@ -1,6 +1,7 @@
-from core.imperium.imperium import Imperium, Emperor
+from core.imperium.imperium import  Emperor, Imperium
 from utils.enum import PlanetType,  Status
-from utils.person import Primarch, Bureaucrat, Astarte, Soldier
+from utils.exceptions.exceptions import SingletonError
+from utils.person import Bureaucrat, Astarte, Soldier
 
 def main() -> None:
     try:
@@ -198,6 +199,7 @@ def main() -> None:
     emperor.create_primarch('Alpharius Omegon', 'Last Primarch', planets_info['cadia'])
     emperor.create_primarch('Belisarius Cawl', 'The Archimagus', planets_info['mars']) # The Primarch can't be added, but planet is added
 
+    print(imperium.primarchs)
     imperium.primarchs[2].betray()
     imperium.primarchs[3].betray()
     imperium.primarchs[7].betray()
@@ -207,7 +209,7 @@ def main() -> None:
     imperium.primarchs[15].betray()
     imperium.primarchs[16].betray()
     imperium.primarchs[19].betray()
-#########################################################
+
     imperium.primarchs[4].change_status(Status.UNKNOWN)
     imperium.primarchs[5].change_status(Status.UNKNOWN)
     imperium.primarchs[6].change_status(Status.UNKNOWN)
@@ -222,7 +224,7 @@ def main() -> None:
 
     imperium.add_bureaucrat(Bureaucrat('Imperial Bureaucrat', 'Departmento Munitorum', planets_info['terra'])) # A new registry must be added at Administratum with value 0
     imperium.register_planet(imperium.get_bureaucrat(0), planets_info['armageddon']) # The registry must increase in 1
-    imperium.register_planet(imperium.get_bureaucrat(0), planets_info['armageddon']) # The registry mustn't increase //Como confirmo esto?
+    imperium.register_planet(imperium.get_bureaucrat(0), planets_info['armageddon']) # The registry mustn't increase
     imperium.register_planet(imperium.get_bureaucrat(0), planets_info['catachan'])
 
     imperium.add_chapter('Dark Angels', imperium.primarchs[0], 'Caliban')

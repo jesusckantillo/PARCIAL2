@@ -13,7 +13,10 @@ class Segmentun:
 
     def add_planet(self,planet:Planet)->None:
         self.__planets.append(planet)
-
+        print(f"Added {planet.get_name()} to Segmentum {self.__name}")
+    
+    def get_planets(self)->List[Planet]:
+        return self.__planets
 class Planet:
 
     def __init__(self,planet_info: dict):
@@ -22,3 +25,6 @@ class Planet:
         chapter: "Chapter"  = None
         regiments: List["Regiment"] = []
 
+
+    def get_name(self)->str:
+        return self.__name

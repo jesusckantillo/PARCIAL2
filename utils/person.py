@@ -1,22 +1,24 @@
+from __future__ import annotations
 from abc import ABC
-from abc import abstractmethod
+from utils.enum import Status
 from typing import List
-from main import Imperium
+from core.imperium.planets import Planet
+
 #Person and people classes
 class Person(ABC):
     
-    last_id =0
+    last_id = 0
 
-    def __init__(self, name: str,planet:Planet)->None:
+    def __init__(self, name: str, planet: "Planet") -> None:
         self._name: str = name
-        self._id_string: str  = str(Person.ID+1)
-        self._planet: "Planet" = planet ##Mandar planeta como diccionario
-        
+        self._id_string: str = Person.gen_id()
+        self._planet: "Planet" = planet
 
     @staticmethod
     def gen_id():
-        Person.last_id +=1
+        Person.last_id += 1
         return format(Person.last_id, '06x')
+    
 class Soldier(Person):
 
     def __init__(self,name:str,age:int, planet:Planet) -> None:
@@ -46,10 +48,13 @@ class Primarch(Person):
           self.__alias: str = alias
           self.__loyalty: bool = True
           self.__status: enumerate = Status.ALIVE
-          self.__imperium: "Imperium" = Imperium
+          self.__imperium: "Imperium" = None
 
      def betray(self) -> None:
         self.__loyalty = False
 
      def change_status(self, status: enumerate) -> None:
         self.__status = status 
+
+     def set_imperium(self, imperium: "Imperium") -> None:
+        self.__imperium = imperium
