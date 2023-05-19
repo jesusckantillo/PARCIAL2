@@ -39,6 +39,15 @@ class Planet:
     def get_type(self)->str:
         return self.__type_
     
+    def get_regiments(self)->List["Regiment"]:
+        return self.__regiments
+    
+    def get_all_soldiers(self)->List["Soldier"]:
+        soldiers = []
+        for regiment in self.__regiments:
+            soldiers.extend(regiment.get_soldiers())
+        return soldiers
+    
     @property
     def name(self)->str:
         return self.__name

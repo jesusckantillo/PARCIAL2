@@ -13,6 +13,12 @@ class AdeptusAstartes():
 
   def get_chapter(self,index:int)->Chapter:
         return self.__chapters[index]
+  
+  def get_chapter_by_primarch(self,primarch:Primarch)->Chapter:
+      for chapter in self.__chapters:
+          if chapter.primarch== primarch:
+              return chapter
+      return None
          
 
 class Chapter():
@@ -25,8 +31,31 @@ class Chapter():
         self.__succesor_chapters: List[Chapter] = []
         
 
-    def add_astarte(self,astarte:Astarte)->None:
+    def add_astarte(self, astarte: Astarte) -> None:
+     try:
+        if self.check_astartes() == 1000:
+           print(f'Chapter {self.name} is full')
+
+        if self.check_astartes() >= 1000:
+            raise RuntimeError("There can only be 1000 Astartes per Chapter")
         self.__Astartes.append(astarte)
+     except RuntimeError as e:
+        print(f"{type(e).__name__}: {str(e)}")
+        
+
+        
+
+    def check_astartes(self)->int:
+        return len(self.__Astartes)
 
     def add_successor_chapter(self,chapter:Chapter)->None:
         self.__succesor_chapters.append(chapter)
+        print(f'Added Successor Chapter {chapter.name} to Chapter {self.__name}')
+
+    @property
+    def name(self)->str:
+        return self.__name
+    
+    @property
+    def primarch(self)->Primarch:
+        return self.__primarch

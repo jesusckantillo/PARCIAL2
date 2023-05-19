@@ -77,7 +77,10 @@ class Imperium:
     
 
     def get_chapter(self, index:int)->Chapter:
-        return self.__adeptus_astartes.get_chapter(index)
+        try:
+            return self.__adeptus_astartes.get_chapter(index)
+        except RuntimeError as e:
+            print(f"{type(e).__name__}: {str(e)}")
 
 
     def find_planet(self, name:str)->Planet:
@@ -85,10 +88,14 @@ class Imperium:
             for planet in segmentum.get_planets():
                 if planet.get_name()== name:
                     return planet
+        return None
+    
 
     #Rercuerda que chapter es reflexiva
     def add_chapter(self,name:str, primarch: Primarch, planetstr: str)->None:
         self.__adeptus_astartes.add_chapter(Chapter(name, primarch,self.find_planet(planetstr)))
+        print(f'Created chapter {name} of Adeptus Astartes')
+
 
     def add_segmentum(self, segmentum: Segmentum)->None:
         self.__segmentums.append(segmentum)
@@ -99,6 +106,7 @@ class Imperium:
         self.__astra_militarun.add_regiment(Regiment(name,self.find_planet(name_planet)))
         planet = self.find_planet(name_planet)
         planet.add_regiment(Regiment(name,planet))
+        print(f'Created Regiment {name} of Astra Militarum')
 
     def get_regiment(self, index:int)->Regiment:
         return self.__astra_militarun.get_regiment(index)
@@ -106,12 +114,18 @@ class Imperium:
 
     def register_planet(self, burecraut: Bureaucrat, planet_info: dict)->None:
          index = self.__administratum.get_bureaucrat_index(burecraut)
-         if self.find_planet(planet_info["planet_name"]) == None:
+         try:
+          if self.find_planet(planet_info["planet_name"]) == None:
             segmetun_instance = Segmentum(planet_info["segmentum_name"], planet_info["segmentum_location"]) 
             planet_instance = Planet(planet_info)
             self.add_planet_segmentun(planet_instance, segmetun_instance)
             self.__segmentums.append(segmetun_instance)
             self.__administratum.modify_registers(index)    
+          else:
+            raise RuntimeError("This planet already exists")
+         except RuntimeError as e:
+            print(f"{type(e).__name__}: {str(e)}")
+            
 
     #Maximo numero de burocratas  / numero de planetas
     def bureaucrat_max_registry(self)->List[Bureaucratm, int]:
@@ -131,20 +145,36 @@ class Imperium:
         except RuntimeError as e:
             print(f"{type(e).__name__}: {str(e)}")
             
-    def planet_type_quantity(self)->dict:
-        planet_counts = Counter()
-        for segmentum in self.__segmentums:
-            for planet in segmentum.get_planets():
-                planet_type = planet.get_type()
-                planet_counts[planet_type.value] += 1
-        return dict(planet_counts)
+    
+    def planet_type_quantity(self)->None:
+      planet_counts = Counter()
+      for segmentum in self.__segmentums:
+        for planet in segmentum.get_planets():
+            planet_type = planet.get_type()
+            planet_counts[planet_type.value] += 1
+        dictio = dict(planet_counts)
+      print("---------- Planet Type ----------")
+      for planet, quantity in sorted(dictio.items()):
+        print("- {} Planet Quantity = {}".format(planet, quantity))
 
-
+    def get_chapter_by_primarch(self, primarch: Primarch)->Chapter:
+        return self.__adeptus_astartes.get_chapter_by_primarch(primarch).name
 
     def show_primarchs_summary(self)->None:
-        pass
+        NUMBERS = [
+        "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
+        "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"
+         ]
+        print("---------- Primarchs Summary ----------")
+        for i in range(20):
+          print(f"- Primarch {NUMBERS[i]}")
+          if self.__primarchs[i] is not None:
+            self.__primarchs[i].show_summary()
+          else:
+            print("  - Purged from Imperial Registry")
+          print("")
 
-
+          
     @property
     def name(self)->str:
         return self.__name
@@ -193,11 +223,13 @@ class Emperor:
                   planet_instance = Planet(planet_info)
                   self.__imperiun.add_segmentum(segmentum_instance)
                   self.__imperiun.add_planet_segmentun(planet_instance, segmentum_instance)  
+                  primarch.set_imperium(self.__imperiun)
                   self.__imperiun.add_primarch(primarch)     
          else:
              segmentun_instance = self.__imperiun.find_segmentum(planet_info["segmentum_name"])
              planet_instance = Planet(planet_info)
              self.__imperiun.add_planet_segmentun(planet_instance, segmentun_instance)
+             primarch.set_imperium(self.__imperiun)
              self.__imperiun.add_primarch(primarch)
 
     

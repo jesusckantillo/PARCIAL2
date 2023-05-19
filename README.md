@@ -1,9 +1,3 @@
 # PARCIAL2
-# Jesus David Cantillo Guerrero 2894
-Parcial 2
-
-
-
-#VALIDACIONES DE LOS COMENTARIOS
-#CHECAR RELACIONES - MULTIPLICIDADES
-#REVISAR TODOS LOS METODOS
+### Jesus David Cantillo Guerrero  NRC 2894
+### **200176842**

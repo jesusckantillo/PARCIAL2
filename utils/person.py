@@ -4,6 +4,7 @@ from utils.enum import Status
 from typing import List
 from core.imperium.planets import Planet
 
+
 #Person and people classes
 class Person(ABC):
     
@@ -49,7 +50,7 @@ class Astarte(Person):
 
 class Primarch(Person):
      
-     def __init__(self, name: str,  alias: str, planet: Planet) -> None:
+     def __init__(self, name: str,  alias: str, planet: dict) -> None:
           super().__init__(name, planet)
           self.__alias: str = alias
           self.__loyalty: bool = True
@@ -66,6 +67,19 @@ class Primarch(Person):
      def set_imperium(self, imperium: "Imperium") -> None:
         self.__imperium = imperium
 
+     def show_summary(self) -> None:
+        planet_instance = Planet(self._planet)
+        print(f'  - ID: {self._id_string}')
+        print(f'  - Name: {self._name}')
+        print(f'  - Alias: {self.__alias}')
+        print(f'  - Loyal: {self.__loyalty}')
+        print(f'  - Status: {self.__status}')
+        print(f'  - Planet: {planet_instance.name}')
+        print(f'   - Astra Militarum Regiments: {len(planet_instance.get_regiments())}')
+        print(f'   - Adeptus Militarun Total Soldiers: {len(planet_instance.get_all_soldiers())}')
+        print(f'   - Adeptus Astartes Chapter: {self.__imperium.get_chapter_by_primarch(self)}')
+
+     
      @property
      def name(self) -> str:
         return self._name
