@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List
+from typing import List, Optional
 from collections import Counter
 
 from core.imperium.planets import Planet, Segmentum
@@ -35,9 +35,6 @@ class Imperium:
     def set_emperor(self, emperor: "Emperor") -> None:
         self.__emperor = emperor
 
-
-    def set_planet(self, planet_info: dict) -> None:
-        self.__planet = Planet(planet_info)
 
     def add_primarch(self,primarch: Primarch)->None:
         try:
@@ -75,7 +72,7 @@ class Imperium:
         except RuntimeError as e:
             print(f"{type(e).__name__}: {str(e)}")
 
-    def find_planet(self, name:str)->Planet:
+    def find_planet(self, name:str)->Optional[Planet]:
         for segmentum in self.__segmentums:
             for planet in segmentum.get_planets():
                 if planet.get_name()== name:
@@ -118,10 +115,11 @@ class Imperium:
     def bureaucrat_max_registry(self)->List[Bureaucratm, int]:
         return self.__administratum.max_registers()
 
-    def find_segmentum(self, name:str)->Segmentun:
+    def find_segmentum(self, name:str)->Optional[Segmentun]:
         for segmentum in self.__segmentums:
             if segmentum.name == name:
                 return segmentum
+        return None
             
     def add_planet_segmentun(self, planet: Planet, segmentum: Segmentum)->None:
         try:
@@ -132,8 +130,7 @@ class Imperium:
         except RuntimeError as e:
             print(f"{type(e).__name__}: {str(e)}")
             
-    def get_regiments_by_planet(self, name:str)->List[Regiment]:
-         return self.__astra_militarun.get_regiments_by_planet(name)
+
 
     def planet_type_quantity(self)->None:
       planet_counts = Counter()
@@ -146,6 +143,7 @@ class Imperium:
       for planet, quantity in sorted(dictio.items()):
         print("- {} Planet Quantity = {}".format(planet, quantity))
       print("")
+   
     def get_chapter_by_primarch(self, primarch: Primarch)->Chapter:
         return self.__adeptus_astartes.get_chapter_by_primarch(primarch)
 
@@ -165,7 +163,7 @@ class Imperium:
             print("  - Purged from Imperial Registry")
           print("")
 
-    def get_regiments_info(self, name:str)->int:
+    def get_regiments_primarch_info(self, name:str)->int:
         soldiers = 0
         regi_amount =0
         for regiment in self.__astra_militarun.regiments:

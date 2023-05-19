@@ -1,11 +1,8 @@
 from __future__ import annotations
 from abc import ABC
 from utils.enum import Status
-from typing import List
 from core.imperium.planets import Planet
 
-
-#Person and people classes
 class Person(ABC):
     
     last_id = -1
@@ -75,8 +72,8 @@ class Primarch(Person):
         print(f'  - Loyal: {self.__loyalty}')
         print(f'  - Status: {self.__status.value}')
         print(f'  - Planet: {planet_instance.name}')
-        print(f'   - Astra Militarum Regiments: {self.__imperium.get_amount_soldiers_regiment(planet_instance.name)[0]}')
-        print(f'   - Adeptus Militarun Total Soldiers: {self.__imperium.get_amount_soldiers_regiment(planet_instance.name)[1]}')
+        print(f'   - Astra Militarum Regiments: {self.__imperium.get_regiments_primarch_info(planet_instance.name)[0]}')
+        print(f'   - Adeptus Militarun Total Soldiers: {self.__imperium.get_regiments_primarch_info(planet_instance.name)[1]}')
         print(f'   - Adeptus Astartes Chapter: {self.__imperium.get_chapter_by_primarch(self).name}')
         print(f'    - Succesor Chapters:')
 

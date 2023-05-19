@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import List
-from collections import Counter
 
 
 class Segmentum:
@@ -32,6 +31,10 @@ class Planet:
 
     def get_name(self)->str:
         return self.__name
+    
+    def add_chapter(self,chapter:Chapter)->None:
+        self.__chapter = chapter
+
 
     def add_regiment(self,regiment:"Regiment")->None:
         self.__regiments.append(regiment)
