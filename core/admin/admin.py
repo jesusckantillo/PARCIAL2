@@ -19,3 +19,10 @@ class Administratum():
 
     def get_bureaucrat_index(self, bureaucrat: Bureaucrat) -> int:
         return self.__bureaucrats.index(bureaucrat)
+    
+
+    #Return index of the max value in the list(burocrat with max registers)
+    def max_registers(self) -> Bureaucrat:
+      max_number = max(self.__planet_registry)
+      max_index = self.__planet_registry.index(max_number)
+      return [self.__bureaucrats[max_index], max_number]

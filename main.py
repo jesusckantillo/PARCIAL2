@@ -199,7 +199,7 @@ def main() -> None:
     emperor.create_primarch('Alpharius Omegon', 'Last Primarch', planets_info['cadia'])
     emperor.create_primarch('Belisarius Cawl', 'The Archimagus', planets_info['mars']) # The Primarch can't be added, but planet is added
 
-    print(imperium.primarchs)
+
     imperium.primarchs[2].betray()
     imperium.primarchs[3].betray()
     imperium.primarchs[7].betray()

@@ -7,7 +7,7 @@ from core.imperium.planets import Planet
 #Person and people classes
 class Person(ABC):
     
-    last_id = 0
+    last_id = -1
 
     def __init__(self, name: str, planet: "Planet") -> None:
         self._name: str = name
@@ -21,8 +21,8 @@ class Person(ABC):
     
 class Soldier(Person):
 
-    def __init__(self,name:str,age:int, planet:Planet) -> None:
-        super().__init__(name,planet)
+    def __init__(self,name:str,age:int, planet_info:dict) -> None:
+        super().__init__(name,planet_info)
         self.__age = age
 
 class Bureaucrat(Person):
@@ -34,6 +34,12 @@ class Bureaucrat(Person):
         def set_planet(self, planet: Planet) -> None:
             self._planet = planet
 
+        @property
+        def name(self) -> str:
+            return self._name
+        @property
+        def id_string(self) -> str:
+            return self._id_string
 
 class Astarte(Person):
      def  __init__(self, name: str, founding: int, planet: Planet) -> None:
@@ -52,9 +58,14 @@ class Primarch(Person):
 
      def betray(self) -> None:
         self.__loyalty = False
+        print(f"Primarch {self._name} betrays the Emperor")
 
      def change_status(self, status: enumerate) -> None:
         self.__status = status 
 
      def set_imperium(self, imperium: "Imperium") -> None:
         self.__imperium = imperium
+
+     @property
+     def name(self) -> str:
+        return self._name
